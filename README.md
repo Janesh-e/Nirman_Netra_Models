@@ -30,9 +30,10 @@ Nirman_Netra_Models/
 │   ├── change_map_example.png
 │   └── waterbody_overlay.png
 ├── epoch_details/
-│   ├──
-│   ├──
-│   └──
+│   ├── building_spacenet_training.png
+│   ├── building_custom_training.png
+│   ├── change_detection_training.png
+│   └── waterbody_training.png
 ├── README.md                        # Project documentation
 ├── requirements.txt                 # Python dependencies (optional)
 ```
@@ -139,6 +140,43 @@ To train and evaluate the deep learning models in **Nirman Netra**, we used a co
 * **Usage**: Used to train a binary segmentation model for identifying waterbodies.
 
 > All datasets were available in the `.tif` format with preserved geo-metadata for downstream spatial analysis such as dimension extraction and location mapping.
+
+---
+
+## 📊 Training Details
+
+Each model was trained independently using task-specific datasets and hyperparameters. The training process was monitored using validation accuracy and loss to prevent overfitting and ensure generalization.
+
+Training and validation performance graphs for all models are shown below:
+
+### Building Detection – SpaceNet (Rio)
+
+![Building Detection – SpaceNet](epoch_details/building_spacenet_training.png)
+
+### Building Detection – Self-Annotated (from Google Earth)
+
+![Building Detection – Custom](epoch_details/building_custom_training.png)
+
+### Change Detection – LEVIR-CD
+
+![Change Detection](epoch_details/change_detection_training.png)
+
+### Waterbody Detection – SpaceNet (Mumbai) + Google Earth
+
+![Waterbody Detection](epoch_details/waterbody_training.png)
+
+---
+
+## 📈 Evaluation Metrics
+
+The table below summarizes key evaluation metrics for each model:
+
+| Model                         |  Accuracy |  Loss    |  Val Accuracy |  Val Loss |
+| ----------------------------- | --------- | -------- | ------------- | --------- |
+| Building Detection (SpaceNet) | `0.9128`  | `0.1613` | `0.9061`      | `0.1809`  |
+| Building Detection (Custom)   | `0.8177`  | `0.3996` | `0.8361`      | `0.3665`  |
+| Change Detection (LEVIR-CD)   | `0.9852`  | `0.0396` | `0.9870`      | `0.0364`  |
+| Waterbody Detection           | `0.9351`  | `0.1674` | `0.9640`      | `0.1250`  |
 
 ---
 
