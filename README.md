@@ -80,7 +80,7 @@ All models used in this project are based on the **U-Net architecture**, a widel
   * Lightweight encoder-decoder design with gradual feature scaling (16 → 256 filters).
   * Batch Normalization and Dropout regularization for better generalization.
   * Output: Binary mask highlighting building regions.
-* **Loss**: Binary Cross-Entropy / Dice Loss (depending on training setup)
+* **Loss**: Binary Cross-Entropy
 
 > Designed for faster inference on high-resolution satellite/drone `.tif` images while maintaining decent precision.
 
