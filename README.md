@@ -22,9 +22,9 @@ This repository contains only the model development notebooks and sample outputs
 ```bash
 Nirman_Netra_Models/
 ├── notebooks/
-│   ├── building_detection.ipynb     # Building detection model training & inference
+│   ├── building_segmentation.ipynb     # Building segmentation model training & inference
 │   ├── change_detection.ipynb       # Change detection model using temporal imagery
-│   ├── waterbody_detection.ipynb    # Waterbody detection model
+│   ├── waterbody_segmentation.ipynb    # Waterbody segmentation model training & inference
 ├── sample_outputs/
 │   ├── building_predictions.png
 │   ├── change_map_example.png
@@ -63,6 +63,51 @@ Nirman_Netra_Models/
    * `waterbody_detection.ipynb`: Detects waterbodies in aerial views to assess environmental impact.
 
 > All notebooks include inline documentation and examples using sample `.tif` files (with embedded geo-metadata).
+
+---
+
+## Models Used
+
+All models used in this project are based on the **U-Net architecture**, a widely adopted convolutional network for semantic segmentation. Each model was tailored to its specific task, with variations in input shape, depth, and number of filters to balance performance and efficiency.
+
+### 🔹 1. Building Detection Model
+
+* **Architecture**: Optimized U-Net
+* **Input Shape**: `(640, 640, 3)`
+* **Task**: Binary segmentation to identify building footprints in aerial imagery.
+* **Characteristics**:
+  * Lightweight encoder-decoder design with gradual feature scaling (16 → 256 filters).
+  * Batch Normalization and Dropout regularization for better generalization.
+  * Output: Binary mask highlighting building regions.
+* **Loss**: Binary Cross-Entropy / Dice Loss (depending on training setup)
+
+> Designed for faster inference on high-resolution satellite/drone `.tif` images while maintaining decent precision.
+
+### 🔹 2. Change Detection Model
+
+* **Architecture**: Deep U-Net with higher capacity
+* **Input Shape**: `(512, 512, 6)` — stacked pair of pre-change and post-change RGB images
+* **Task**: Segment areas that have undergone changes (e.g., new constructions)
+* **Characteristics**:
+  * Deeper network with a larger bottleneck (up to 512 filters)
+  * Takes concatenated temporal image pairs as input
+  * Useful for flagging regions to be further analyzed for new or unauthorized structures
+
+> This model helps automatically narrow down areas of interest by comparing different timestamps of the same location.
+
+### 🔹 3. Waterbody Detection Model
+
+* **Architecture**: Classic U-Net with wide layers
+* **Input Shape**: `(640, 640, 3)`
+* **Task**: Semantic segmentation of waterbodies such as lakes, rivers, or ponds.
+* **Characteristics**:
+  * Higher parameter count with up to 1024 filters at the bottleneck
+  * Accurate delineation of water edges and proximity regions
+  * Essential for proximity analysis during environmental rule checks
+
+> This model ensures accurate assessment of construction legality near waterbodies.
+
+Each model was trained and validated independently with task-specific data preprocessing and augmentation. You can find the corresponding training code and sample predictions in the `notebooks/` folder.
 
 ---
 
