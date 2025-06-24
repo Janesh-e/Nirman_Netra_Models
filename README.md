@@ -111,7 +111,38 @@ Each model was trained and validated independently with task-specific data prepr
 
 ---
 
-## Acknowledgements
+## 📦 Datasets
+
+To train and evaluate the deep learning models in **Nirman Netra**, we used a combination of publicly available datasets and self-annotated imagery. Below are the dataset details per task:
+
+### 1. Change Detection – **LEVIR-CD**
+
+* **Source**: [LEVIR-CD Dataset](https://justchenhao.github.io/LEVIR/)
+* **Content**: Paired high-resolution aerial images (pre-change and post-change) of urban areas taken at two different times, along with change masks.
+* **Usage**: Used to train the **change detection model** to identify areas that underwent construction or other significant alterations.
+
+### 2. Building Detection – **SpaceNet (Rio) + Self-Annotated Data**
+
+* **Sources**:
+  * [SpaceNet Building Detection Dataset – Rio de Janeiro](https://spacenet.ai/spacenet-buildings-dataset-v2/)
+  * Custom-annotated screenshots from **Google Earth**
+* **Usage**: Used to train the **building segmentation model** for detecting building footprints from aerial imagery.
+
+* **Note**: We initially tried creating a custom dataset by annotating Google Earth screenshots. However, due to limited time, limited quantity, and inconsistent quality, they were used sparingly.
+
+### 3. Waterbody Detection – SpaceNet (Mumbai) + Self-Annotated
+
+* **Source**: Combination of:
+  * SpaceNet’s Mumbai region satellite images
+  * Custom screenshots from Google Earth
+* **Annotation**: Manually labeled to create waterbody masks (lakes, ponds, rivers).
+* **Usage**: Used to train a binary segmentation model for identifying waterbodies.
+
+> All datasets were available in the `.tif` format with preserved geo-metadata for downstream spatial analysis such as dimension extraction and location mapping.
+
+---
+
+## 🤝 Acknowledgements
 
 We'd like to acknowledge the following resources and frameworks:
 
